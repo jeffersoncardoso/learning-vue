@@ -5,29 +5,36 @@
 	</head>
 	<body>
 		<div id="container">
-			<ul>
-				<li @click="removeName(name)" v-for="name in names" v-text="name"></li>
-			</ul>
-			<input type="text" placeholder="Digite o nome" v-model="newName">
-			<button @click="addName">Adicionar</button>
+			<p v-bind:title="title">Put the mouse over here</p>
+			
+			<label>
+				<input @click="disableButton"name="question" type="radio" value="Y">Sim 
+				<input @click="disableButton"name="question" type="radio" value="N">Não 
+				<input @click="enableButton"name="question" type="radio" value="O">Outro
+			</label>
+
+			<br><br>
+			
+			<button :disabled="isDisabled">{{ message }}</button>
 		</div>
 
 		<script>
 			new Vue({
 				el: "#container",
 				data: {
-					newName: "",
-					names: ['Jefferson','Douglas', 'Alisson', 'Mauricio']
+					title : 'The title',
+					isDisabled : false,
+					message : "Is enabled",
 				},
 				methods: {
-			 		addName : function(){ 
-			 			this.names.push(this.newName); 
-			 			this.newName = "";
-			 		},
-			 		removeName : function(name){
-		 				var index = this.names.indexOf(name);
-		 				this.names.splice(index,1);
-			 		}
+					disableButton : function(){
+						this.isDisabled = true;
+						this.message = "Is disabled";
+					},
+					enableButton : function(){
+						this.isDisabled = false;
+						this.message = "Is enabled";
+					}
 				}
 			})
 		</script>
